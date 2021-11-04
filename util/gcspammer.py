@@ -13,7 +13,7 @@ def GcSpammer(token, recipients):
     json = {
         "recipients": recipients
     }
-    for i in range(3):
+    for i in range(10): # you change if you want but ratelimits are strict
         try:
             r = requests.post(f'https://discordapp.com/api/v9/users/@me/channels',
             headers=getheaders(token), json=json)
