@@ -39,6 +39,7 @@ code ✅
 * ` Create Qr code that grabs their token upon scanning`
 * ` Mass report`
 * ` Webhook destroyer`
+* ` Groupchat Spammer [NEW]`
 
 <p align="center">
  <img alt="HazardNuker" src="https://cdn.discordapp.com/attachments/895403117301084161/898926072014458960/unknown.png" width="45%">
