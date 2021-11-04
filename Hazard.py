@@ -11,6 +11,7 @@ from util.plugins.common import clear, setTitle, getheaders, THIS_VERSION
 from util.plugins.update import search_for_updates
 import util.accountNuke
 import util.dmdeleter
+import util.gcspammer
 import util.info
 import util.login
 import util.massreport
@@ -53,8 +54,8 @@ def main():
 {Fore.RESET}[{Fore.GREEN}5{Fore.RESET}]{Fore.BLACK} Dm Deleter                                  |{Fore.RESET}[{Fore.GREEN}14{Fore.RESET}]{Fore.BLACK} QR Code grabber
 {Fore.RESET}[{Fore.GREEN}6{Fore.RESET}]{Fore.BLACK} Mass Dm                                     |{Fore.RESET}[{Fore.GREEN}15{Fore.RESET}]{Fore.BLACK} Mass Report
 {Fore.RESET}[{Fore.GREEN}7{Fore.RESET}]{Fore.BLACK} Enable Seizure Mode                         |{Fore.RESET}[{Fore.GREEN}16{Fore.RESET}]{Fore.BLACK} Webhook Destroyer
-{Fore.RESET}[{Fore.GREEN}8{Fore.RESET}]{Fore.BLACK} Get information from a targetted account    |{Fore.RESET}[{Fore.GREEN}17{Fore.RESET}]{Fore.RED} Exit
-{Fore.RESET}[{Fore.GREEN}9{Fore.RESET}]{Fore.BLACK} Log into an account                         |
+{Fore.RESET}[{Fore.GREEN}8{Fore.RESET}]{Fore.BLACK} Get information from a targetted account    |{Fore.RESET}[{Fore.GREEN}17{Fore.RESET}]{Fore.BLACK} Groupchat Spammer
+{Fore.RESET}[{Fore.GREEN}9{Fore.RESET}]{Fore.BLACK} Log into an account                         |{Fore.RESET}[{Fore.GREEN}18{Fore.RESET}]{Fore.RED} Exit
 {Fore.WHITE}────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────{Style.RESET_ALL}'''
     print(banner)
     choice = str(input(
@@ -398,13 +399,40 @@ def main():
                     sleep(1)
                     main()
             except Exception as e:
-                print(f"an error occured\nignoring: {e}")
+                print(f"An error occured\nIgnoring: {e}")
                 sleep(4)
                 main()
             util.webhookspammer.WebhookSpammer(WebHook, Message, Timer)
+
+
+    elif choice == "17":
+        token = str(input(
+            f'{Fore.GREEN}[{Fore.CYAN}>>>{Fore.GREEN}] {Fore.RESET}Token: {Fore.LIGHTRED_EX}'))
+        recipients = (input(
+            f'{Fore.GREEN}[{Fore.CYAN}>>>{Fore.GREEN}] {Fore.RESET}Recipients (separate by ,): {Fore.LIGHTRED_EX}'))
+        recipientslist = recipients.split(',')
+        if "," not in recipients:
+            print(f"\n{Fore.RED}You didn't have any commas (,) format is id,id2,id3")
+            sleep(1)
+            main()
+        r = requests.get(
+            'https://discord.com/api/v9/users/@me',
+            headers=getheaders(token))
+        if r.status_code == 200:
+            clear()
+            threading.Thread(target=util.gcspammer.GcSpammer, args=(token, recipientslist, )).start()
+            return
+        else:
+            print(f"\n{Fore.RED}Invalid Token.{Fore.RESET}")
+            sleep(1)
+            main() 
+
+
+
+
             
 
-    elif choice == '17':
+    elif choice == '18':
         setTitle("Exiting...")
         choice = str(input(
             f'{Fore.GREEN}[{Fore.CYAN}>>>{Fore.GREEN}] {Fore.RESET}Are you sure you want to exit? (Y to confirm): {Fore.LIGHTRED_EX}'))
