@@ -25,7 +25,7 @@ def checkTokens(filename: str, newFile: bool=False, newFileName: str="tokensVALI
         if validateToken(i):
             valid = True
             if newFile:
-                newFileFile.write(i)
+                newFileFile.write(i+"\n")
             else:
                 print(f"\n{Fore.RED}Valid token : {i}{Fore.RESET}")
     if not valid:
