@@ -36,16 +36,13 @@ def main():
     clear()
     global threads
     global cancel_key
-    if getTheme() == "hazardous":
+        
+    theme = getTheme()
+    
+    if theme == "hazardous":
         banner()
-    elif getTheme() == "dark":
-        banner("dark")
-    elif getTheme() == "fire":
-        banner("fire")
-    elif getTheme() == "water":
-        banner("water")
-    elif getTheme() == "neon":
-        banner("neon")
+    elif theme in ["dark", "fire", "water", "neon"]:
+        banner(theme)
 
     choice = input(
             f'{Fore.GREEN}[{Fore.CYAN}>>>{Fore.GREEN}] {Fore.RESET}Choice: {Fore.RED}')
